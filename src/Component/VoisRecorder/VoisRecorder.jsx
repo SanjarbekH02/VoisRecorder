@@ -1,20 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-const VoisRecorder = () => {
-
+function VoiceRecorder() {
     const [isRecording, setIsRecording] = useState(false);
-    const [audioUrl, setAudioUrl] = useState(null);
+    const [audioClips, setAudioClips] = useState([]); // Audiolarni saqlash uchun
     const recorderRef = useRef(null);
     const timeoutRef = useRef(null);
     const recognitionRef = useRef(null);
-
 
     useEffect(() => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRecognition) {
             recognitionRef.current = new SpeechRecognition();
             recognitionRef.current.continuous = true;
-            recognitionRef.current.interimResults;
+            recognitionRef.current.interimResults = true;
 
             recognitionRef.current.onresult = (event) => {
                 const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
@@ -38,54 +36,60 @@ const VoisRecorder = () => {
                 const chunks = [];
                 recorderRef.current.ondataavailable = (e) => chunks.push(e.data);
                 recorderRef.current.onstop = () => {
-                    const blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'});
-                    setAudioUrl(URL.createObjectURL(blob));
+                    const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+                    const audioUrl = URL.createObjectURL(blob);
+                    setAudioClips((prevClips) => [...prevClips, audioUrl]); // Yangi audio-ni listga qo'shish
                     setIsRecording(false);
                 };
-
                 recorderRef.current.start();
                 setTimeoutHandler();
-            })
-
-    }
+            });
+    };
 
     const stopRecording = () => {
-        if(recorderRef.current) {
+        if (recorderRef.current) {
             recorderRef.current.stop();
         }
         clearTimeout(timeoutRef.current);
-    }
+    };
 
     const setTimeoutHandler = () => {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => {
             stopRecording();
         }, 2000);
-    }
+    };
 
     const resetTimeout = () => {
-        clearTimeout(timeoutRef.current)
+        clearTimeout(timeoutRef.current);
         setTimeoutHandler();
-    }
+    };
 
-    const playAudio = () => {
-        if(audioUrl){
-            const audio = new Audio(audioUrl);
-            audio.play();
-        }
-    }
+    const playAudio = (audioUrl) => {
+        const audio = new Audio(audioUrl);
+        audio.play();
+    };
 
     return (
         <div>
-            <h1>Vois Recorder</h1>
+            <h1 className='title'>Voice Recorder</h1>
             {isRecording ? <p>Recording...</p> : <p>Say "Hey Alexa" to start recording</p>}
-            {audioUrl && (
-                <div>
-                    <button>Play Recorded Message</button>
-                </div>
+
+            <h2>Recorded Messages</h2>
+            {audioClips.length > 0 ? (
+                <ul>
+                    {audioClips.map((clip, index) => (
+                        <li key={index}>
+                            <button onClick={() => playAudio(clip)}>Play Recording {index + 1}</button>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No recordings yet</p>
             )}
         </div>
     );
 }
 
-export default VoisRecorder;
+export default VoiceRecorder;
+
