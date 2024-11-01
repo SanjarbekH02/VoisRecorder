@@ -1,5 +1,5 @@
 import './App.css'
-import VoisRecorder from './Component/VoisRecorder/VoisRecorder'
+import VoisRecorder from './Component/VoiceRecorder/VoiceRecorder'
 function App() {
 
   return (
