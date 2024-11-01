@@ -60,7 +60,7 @@ function VoiceRecorder() {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => {
             stopRecording();
-        }, 2000);
+        }, 3000);
     };
 
     const resetTimeout = () => {
