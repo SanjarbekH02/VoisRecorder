@@ -98,7 +98,7 @@ function VoiceRecorder() {
                             ))}
                         </ul>
                     ) : (
-                        <p>No recordings yet</p>
+                        <p className='no-record'>No recordings yet</p>
                     )}
                 </div>
             </div>

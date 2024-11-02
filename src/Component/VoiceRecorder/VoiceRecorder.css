@@ -1,16 +1,16 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-.record{
+.record {
     width: 100%;
     height: 100vh;
     background-color: #252625;
 }
 
-.title{
+.title {
     text-align: center;
     padding: 20px;
     background-color: black;
@@ -20,14 +20,14 @@
 
 }
 
-.record-block{
+.record-block {
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
 }
 
-.recording-box{
+.recording-box {
     width: 60%;
     display: flex;
     align-items: center;
@@ -39,34 +39,34 @@
     box-shadow: 0 0 25px white;
 }
 
-.record-title{
+.record-title {
     color: white;
 }
 
-.recording-name{
+.recording-name {
     color: white;
     text-align: center;
 }
 
-.recording-card{
+.recording-card {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 
-.record-img{
+.record-img {
     width: 300px;
     height: 50px;
 }
 
-.mic-img{
+.mic-img {
     width: 300px;
     height: 160px;
     padding: 20px;
 }
 
-.recorded-message{
+.recorded-message {
     width: 25%;
     height: 80vh;
     background-color: rgb(0, 0, 0);
@@ -76,18 +76,18 @@
     box-shadow: 0 0 25px white;
 }
 
-.recorded-name{
+.recorded-name {
     color: white;
     text-align: center;
     border-bottom: 2px solid white;
     padding-bottom: 10px;
 }
 
-.list{
+.list {
     text-decoration: none;
 }
 
-.play-btn{
+.play-btn {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -96,4 +96,11 @@
     border: none;
     color: white;
     font-size: 20px;
+}
+
+.no-record {
+    color: white;
+    font-size: 24px;
+    padding: 20px;
+    text-align: center;
 }
